@@ -60,6 +60,7 @@ export class HeroService {
     if (!term.trim()) {
       return of([]);
     }
+    
     return this.http.get<Hero[]>(`${this.heroesUrl}/?name=${term}`).pipe(
       tap(x => x.length ?
         this.log(`found heroes matching "${term}"`) :
@@ -73,17 +74,17 @@ export class HeroService {
   }
 
   /**
- * Handle Http operation that failed.
- * Let the app continue.
- *
- * @param operation - name of the operation that failed
- * @param result - optional value to return as the observable result
- */
-private handleError<T>(operation = 'operation', result?: T) {
-  return (error: any): Observable<T> => {
-    console.error(error); // log to console instead
-    this.log(`${operation} failed: ${error.message}`);
-    return of(result as T);
-  };
-}
+   * Handle Http operation that failed.
+   * Let the app continue.
+   *
+   * @param operation - name of the operation that failed
+   * @param result - optional value to return as the observable result
+   */
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error);
+      this.log(`${operation} failed: ${error.message}`);
+      return of(result as T);
+    };
+  }
 }
